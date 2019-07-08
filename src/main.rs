@@ -13,6 +13,13 @@ pub extern "C" fn main(_argc: i32, _argv: *const *const u8) -> i32 {
     let hello = "Hello, minimal Rust!\n\0";
     unsafe {
         printf(hello.as_ptr() as *const _);
+
+        let fname = "hello.txt\0".as_ptr() as *const _;
+        let mode = "w\0".as_ptr() as *const _;
+
+        let file = fopen(fname, mode);
+        fprintf(file, hello.as_ptr() as *const _);
+        fclose(file);
     }
     0
 }
